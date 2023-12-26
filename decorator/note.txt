@@ -1,0 +1,2 @@
+# Giving an object new responsibility without making any chnge to the existing object.
+// Decorator adds it own functionality either before or after delegating to the object it decorates.
