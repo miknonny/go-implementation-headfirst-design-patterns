@@ -1,0 +1,12 @@
+# Folders
+bin/
+build/
+.idea/
+.vscode/
+tmp/
+contacts/
+
+# Files
+*.log
+.env
+coverage.out
