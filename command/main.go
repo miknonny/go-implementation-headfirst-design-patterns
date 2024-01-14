@@ -1,24 +1,40 @@
 package main
 
-import "fmt"
+import "githhub.com/miknonny/design_patterns/command/pkg/smarthome"
 
 func main() {
-	var light Light
-	lightCommand := NewLightCommand(&light)
+	houseRemote := smarthome.NewRemoteControl()
 
-	var garageDoor GarageDoor
-	garageDoorCommand := NewGarageDoorCommand(&garageDoor)
+	// Devices
+	livingRoomLight := smarthome.Newlight("Living Room")
+	kitchenLight := smarthome.Newlight("kitchen light")
+	ceilingFan := smarthome.NewCeilingFan("living Room")
+	garageDoor := smarthome.NewGarageDoor("store")
 
-	var remote RemoteControl
+	//Commands
+	livingRoomLightOn := smarthome.NewLightOnCommand(livingRoomLight)
+	livingRoomLightOff := smarthome.NewLightOffCommand(livingRoomLight)
 
-	remote.SetCommand(lightCommand)
-	remote.PressButton()
-	remote.PressButton()
+	kitchenLightOn := smarthome.NewLightOnCommand(kitchenLight)
+	kitchenLightOff := smarthome.NewLightOffCommand(kitchenLight)
 
-	fmt.Println("=========== changed the command on the remote control slot=========")
+	ceilingFanOn := smarthome.NewCeilingFanOnCommand(ceilingFan)
+	ceilingFanOff := smarthome.NewCeilingFanOffCommand(ceilingFan)
 
-	remote.SetCommand(garageDoorCommand)
-	remote.PressButton()
-	remote.PressButton()
+	garageDoorOpen := smarthome.NewGarageDoorOpenCommand(garageDoor)
+	garageDoorClose := smarthome.NewGarageDoorCloseCommand(garageDoor)
 
+	// Programming Remote.
+	houseRemote.SetCommand(0, livingRoomLightOn, livingRoomLightOff)
+	houseRemote.SetCommand(3, garageDoorOpen, garageDoorClose)
+	houseRemote.SetCommand(6, ceilingFanOn, ceilingFanOff)
+	houseRemote.SetCommand(4, kitchenLightOn, kitchenLightOff)
+
+	houseRemote.OnButtonPushed(0)
+	houseRemote.OnButtonPushed(1)
+	houseRemote.OnButtonPushed(2)
+	houseRemote.OnButtonPushed(3)
+	houseRemote.OnButtonPushed(4)
+	houseRemote.OnButtonPushed(5)
+	houseRemote.OnButtonPushed(6)
 }

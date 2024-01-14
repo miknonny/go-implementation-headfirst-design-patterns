@@ -1,3 +1,3 @@
-module headfirst-design-patterns
+module githhub.com/miknonny/design_patterns
 
-go 1.20
+go 1.21.5
