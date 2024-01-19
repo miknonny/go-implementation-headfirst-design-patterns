@@ -47,7 +47,7 @@ func (g *GarageDoor) Open() {
 
 func (g *GarageDoor) Close() {
 	g.open = false
-	fmt.Printf("%s GarageDoor was closed\n", g.location)
+	fmt.Printf("%s GarageDoor was closed", g.location)
 }
 
 type Stereo struct {
@@ -69,12 +69,12 @@ func (s *Stereo) On() {
 
 func (s *Stereo) Off() {
 	s.on = false
-	fmt.Printf("%v Stereo was turned on\n", s.mode)
+	fmt.Printf("%v Stereo was turned on", s.location)
 }
 
 func (s *Stereo) setMode(mode StereoMode) {
 	s.mode = mode
-	fmt.Printf("%v Stereo was turned off\n", s.mode)
+	fmt.Printf("%v Stereo was turned off", s.mode)
 }
 
 func (s *Stereo) setVolume(vol int) {
@@ -92,10 +92,10 @@ func NewCeilingFan(location string) *CeilingFan {
 }
 func (c *CeilingFan) On() {
 	c.on = true
-	fmt.Printf("%s ceiling fan was turned on\n", c.location)
+	fmt.Printf("%s ceiling fan was turned on", c.location)
 }
 
 func (c *CeilingFan) Off() {
 	c.on = false
-	fmt.Printf("%s ceiling fan was turned off\n", c.location)
+	fmt.Printf("%s ceiling fan was turned off", c.location)
 }

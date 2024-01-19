@@ -10,6 +10,7 @@ func main() {
 	kitchenLight := smarthome.Newlight("kitchen light")
 	ceilingFan := smarthome.NewCeilingFan("living Room")
 	garageDoor := smarthome.NewGarageDoor("store")
+	stereo := smarthome.NewStereo("living room")
 
 	//Commands
 	livingRoomLightOn := smarthome.NewLightOnCommand(livingRoomLight)
@@ -24,10 +25,13 @@ func main() {
 	garageDoorOpen := smarthome.NewGarageDoorOpenCommand(garageDoor)
 	garageDoorClose := smarthome.NewGarageDoorCloseCommand(garageDoor)
 
+	livingRoomStereoOn := smarthome.NewSteroOnCommand(stereo)
+	livingRoomStereoOff := smarthome.NewSteroOffCommand(stereo)
+
 	// Programming Remote.
 	houseRemote.SetCommand(0, livingRoomLightOn, livingRoomLightOff)
+	houseRemote.SetCommand(2, livingRoomStereoOn, livingRoomStereoOff)
 	houseRemote.SetCommand(3, garageDoorOpen, garageDoorClose)
-	houseRemote.SetCommand(6, ceilingFanOn, ceilingFanOff)
 	houseRemote.SetCommand(4, kitchenLightOn, kitchenLightOff)
 
 	houseRemote.OnButtonPushed(0)
