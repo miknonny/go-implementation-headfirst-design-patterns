@@ -10,6 +10,7 @@ const slotSize = 7
 type RemoteControl struct {
 	onCommands  []Command
 	offCommands []Command
+	undoCommand Command
 }
 
 func NewRemoteControl() *RemoteControl {
@@ -28,6 +29,8 @@ func NewRemoteControl() *RemoteControl {
 		remoteControl.offCommands[i] = &noCommand
 	}
 
+	remoteControl.undoCommand = &noCommand
+
 	return remoteControl
 }
 
@@ -38,10 +41,16 @@ func (r *RemoteControl) SetCommand(slot int, onCommand Command, offCommand Comma
 
 func (r *RemoteControl) OnButtonPushed(slot int) {
 	r.onCommands[slot].Execute()
+	r.undoCommand = r.onCommands[slot]
 }
 
 func (r *RemoteControl) OffButtonPushed(slot int) {
 	r.offCommands[slot].Execute()
+	r.undoCommand = r.offCommands[slot]
+}
+
+func (r *RemoteControl) UndoButtonPushed(slot int) {
+	r.undoCommand.Undo()
 }
 
 func (r *RemoteControl) String() string {

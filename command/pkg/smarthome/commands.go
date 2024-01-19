@@ -4,6 +4,7 @@ import "fmt"
 
 type Command interface {
 	Execute()
+	Undo()
 }
 
 // Light
@@ -13,6 +14,10 @@ type LightOnCommand struct {
 
 func (lc *LightOnCommand) Execute() {
 	lc.light.On()
+}
+
+func (lc *LightOnCommand) Undo() {
+	lc.light.Off()
 }
 
 func NewLightOnCommand(l *Light) *LightOnCommand {
@@ -25,6 +30,10 @@ type LightOffCommand struct {
 
 func (lc *LightOffCommand) Execute() {
 	lc.light.Off()
+}
+
+func (lc *LightOffCommand) Undo() {
+	lc.light.On()
 }
 
 func NewLightOffCommand(l *Light) *LightOffCommand {
@@ -44,6 +53,10 @@ func (g *GarageDoorOpenCommand) Execute() {
 	g.garageDoor.Open() // note that we can perform more actions on the recevier of the the garageDoor command.
 }
 
+func (g *GarageDoorOpenCommand) Undo() {
+	g.garageDoor.Close() // note that we can perform more actions on the recevier of the the garageDoor command.
+}
+
 func NewGarageDoorCloseCommand(g *GarageDoor) *GarageDoorCloseCommand {
 	return &GarageDoorCloseCommand{g}
 }
@@ -54,6 +67,9 @@ type GarageDoorCloseCommand struct {
 
 func (g *GarageDoorCloseCommand) Execute() {
 	g.garageDoor.Close()
+}
+func (g *GarageDoorCloseCommand) Undo() {
+	g.garageDoor.Open()
 }
 
 // Stereo command
@@ -71,6 +87,10 @@ func (s *StereoOnCommand) Execute() {
 	s.stereo.setVolume(11)
 }
 
+func (s *StereoOnCommand) Undo() {
+	s.stereo.Off()
+}
+
 type StereoOffCommand struct {
 	stereo *Stereo
 }
@@ -81,6 +101,10 @@ func NewSteroOffCommand(s *Stereo) *StereoOffCommand {
 
 func (s *StereoOffCommand) Execute() {
 	s.stereo.Off()
+}
+
+func (s *StereoOffCommand) Undo() {
+	s.stereo.On()
 }
 
 // Ceiling Fan
@@ -98,6 +122,10 @@ func (c *CeilingFanOnCommand) Execute() {
 	c.ceilingFan.On()
 }
 
+func (c *CeilingFanOnCommand) Undo() {
+	c.ceilingFan.Off()
+}
+
 type CeilingFanOffCommand struct {
 	ceilingFan *CeilingFan
 }
@@ -112,9 +140,17 @@ func (c *CeilingFanOffCommand) Execute() {
 	c.ceilingFan.Off()
 }
 
+func (c *CeilingFanOffCommand) Undo() {
+	c.ceilingFan.On()
+}
+
 type NoCommand struct {
 }
 
 func (n *NoCommand) Execute() {
 	fmt.Println("program me!")
+}
+
+func (n *NoCommand) Undo() {
+
 }
